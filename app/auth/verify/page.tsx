@@ -10,7 +10,7 @@ export default function VerifyPage() {
           <div className="h-12 w-12 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-xl">
             V
           </div>
-          <h1 className="mt-4 text-3xl font-bold">VoteHub</h1>
+          <h1 className="mt-4 text-3xl font-bold">Verilect</h1>
         </div>
 
         <Card>

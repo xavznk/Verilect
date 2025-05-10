@@ -19,7 +19,7 @@ export default async function LoginPage() {
             <div className="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold">
               V
             </div>
-            <span className="text-2xl font-bold">VoteHub</span>
+            <span className="text-2xl font-bold">Verilect</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/register">
