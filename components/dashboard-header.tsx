@@ -32,7 +32,7 @@ export function DashboardHeader() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
             <Vote className="h-6 w-6 text-emerald-500" />
-            <span className="text-xl font-bold">VoteHub</span>
+            <span className="text-xl font-bold">Verilect</span>
           </Link>
         </div>
 

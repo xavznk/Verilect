@@ -1,30 +1,39 @@
-import { AuthHeader } from "@/components/auth-header"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { getSession } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-export default async function VerifyPage() {
-  const session = await getSession()
-
-  if (session) {
-    redirect("/dashboard")
-  }
-
+export default function VerifyPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <AuthHeader />
-      <div className="container flex flex-col items-center justify-center px-4 py-12">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Vérifiez votre email</CardTitle>
-            <CardDescription>Nous avons envoyé un lien de connexion à votre adresse email.</CardDescription>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md">
+        <div className="mb-8 flex flex-col items-center justify-center text-center">
+          <div className="h-12 w-12 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-xl">
+            V
+          </div>
+          <h1 className="mt-4 text-3xl font-bold">VoteHub</h1>
+        </div>
+
+        <Card>
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold">Vérifiez votre email</CardTitle>
+            <CardDescription>
+              Nous avons envoyé un lien de vérification à votre adresse email. Veuillez cliquer sur ce lien pour activer
+              votre compte.
+            </CardDescription>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Veuillez vérifier votre boîte de réception et cliquer sur le lien pour vous connecter. Si vous ne trouvez
-              pas l'email, vérifiez votre dossier spam.
-            </p>
+          <CardContent className="space-y-4">
+            <div className="rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300">
+              <p>
+                Si vous ne recevez pas l'email dans les prochaines minutes, veuillez vérifier votre dossier de spam ou
+                de courrier indésirable.
+              </p>
+            </div>
           </CardContent>
+          <CardFooter className="flex flex-col space-y-4">
+            <Button className="w-full" asChild>
+              <Link href="/login">Retour à la connexion</Link>
+            </Button>
+          </CardFooter>
         </Card>
       </div>
     </div>
