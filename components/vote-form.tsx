@@ -92,13 +92,14 @@ export function VoteForm({ poll }: VoteFormProps) {
       })
 
       // Rediriger vers les résultats si disponibles, sinon vers le dashboard
-      if (poll.is_realtime_results) {
-        router.push(`/dashboard/results/${poll.id}`)
+      if (poll.is_realtime_results && poll.is_public_results) {
+        router.push(`/vote/${poll.id}/results`)
       } else {
         router.push("/dashboard")
       }
       router.refresh()
     } catch (err: any) {
+      console.error("Erreur lors du vote:", err)
       setError(err.message)
     } finally {
       setLoading(false)

@@ -2,7 +2,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, Vote } from "lucide-react"
-import { ResultsChart } from "@/components/results-chart"
 import { createServerSupabaseClient } from "@/lib/supabase/server"
 import { notFound, redirect } from "next/navigation"
 import { format } from "date-fns"
@@ -87,7 +86,9 @@ export default async function PublicResultsPage({ params }: { params: { id: stri
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Date de début</p>
-                    <p className="font-medium">{format(new Date(poll.start_date), "PPP", { locale: fr })}</p>
+                    <p className="font-medium">
+                      {format(new Date(poll.start_date || poll.created_at), "PPP", { locale: fr })}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Date de fin</p>
@@ -161,7 +162,27 @@ export default async function PublicResultsPage({ params }: { params: { id: stri
             <CardDescription>Répartition des votes entre les différentes options</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResultsChart options={optionsWithVotes} />
+            <div className="space-y-4">
+              {optionsWithVotes
+                .sort((a, b) => b.votes - a.votes)
+                .map((option) => {
+                  const totalVotes = votes ? votes.length : 0
+                  const percentage = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0
+                  return (
+                    <div key={option.id}>
+                      <div className="mb-1 flex items-center justify-between">
+                        <span className="font-medium">{option.name}</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                          {option.votes} vote{option.votes !== 1 ? "s" : ""} ({percentage}%)
+                        </span>
+                      </div>
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+                        <div className="h-full rounded-full bg-emerald-500" style={{ width: `${percentage}%` }}></div>
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>
           </CardContent>
         </Card>
       </main>
